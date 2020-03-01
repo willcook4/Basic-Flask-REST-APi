@@ -3,7 +3,7 @@ from flask_restful import Api
 from flask_jwt import JWT
 from datetime import timedelta
 
-from db import db
+# from db import db
 from security import authenticate, identity
 from resources.user import UserRegister
 from resources.item import Item, ItemList
@@ -17,11 +17,6 @@ api = Api(app)
 app.secret_key = 'jose'
 app.config['JWT_AUTH_URL_RULE'] = '/login' # change the default JWT /auth endpoint to /login 
 app.config['JWT_EXPIRATION_DELTA'] = timedelta(seconds=1800) # set JWT token to expire within 30 min
-
-# flask decorator
-@app.before_first_request
-def create_tables():
-  db.create_all()
 
 jwt = JWT(app, authenticate, identity) 
 
